@@ -1,56 +1,56 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, auto
 from typing import Any
 
 
 class TokenType(Enum):
     # Single-character tokens
-    LEFT_PAREN = 1
-    RIGHT_PAREN = 2
-    LEFT_BRACE = 3
-    RIGHT_BRACE = 4
-    COMMA = 5
-    DOT = 6
-    MINUS = 7
-    PLUS = 8
-    SEMICOLON = 9
-    SLASH = 10
-    STAR = 11
+    LEFT_PAREN = auto()
+    RIGHT_PAREN = auto()
+    LEFT_BRACE = auto()
+    RIGHT_BRACE = auto()
+    COMMA = auto()
+    DOT = auto()
+    MINUS = auto()
+    PLUS = auto()
+    SEMICOLON = auto()
+    SLASH = auto()
+    STAR = auto()
 
     # One or two character tokens
-    BANG = 12
-    BANG_EQUAL = 13
-    EQUAL = 14
-    EQUAL_EQUAL = 15
-    GREATER = 16
-    GREATER_EQUAL = 17
-    LESS = 18
-    LESS_EQUAL = 19
+    BANG = auto()
+    BANG_EQUAL = auto()
+    EQUAL = auto()
+    EQUAL_EQUAL = auto()
+    GREATER = auto()
+    GREATER_EQUAL = auto()
+    LESS = auto()
+    LESS_EQUAL = auto()
 
     # Literals
-    IDENTIFIER = 20
-    STRING = 21
-    NUMBER = 22
+    IDENTIFIER = auto()
+    STRING = auto()
+    NUMBER = auto()
 
     # Keywords
-    AND = 23
-    CLASS = 24
-    ELSE = 25
-    FALSE = 26
-    FUN = 27
-    FOR = 28
-    IF = 29
-    NIL = 30
-    OR = 31
-    PRINT = 32
-    RETURN = 33
-    SUPER = 34
-    THIS = 35
-    TRUE = 36
-    VAR = 37
-    WHILE = 38
+    AND = auto()
+    CLASS = auto()
+    ELSE = auto()
+    FALSE = auto()
+    FUN = auto()
+    FOR = auto()
+    IF = auto()
+    NIL = auto()
+    OR = auto()
+    PRINT = auto()
+    RETURN = auto()
+    SUPER = auto()
+    THIS = auto()
+    TRUE = auto()
+    VAR = auto()
+    WHILE = auto()
 
-    EOF = 39
+    EOF = auto()
 
 
 KEYWORDS = {
@@ -81,6 +81,6 @@ class Token:
     line: int
 
     def __str__(self):
-        return f"Token({self.type}, {self.lexeme}, {self.literal})"
+        return f"{self.type.name}({self.lexeme!r}, {self.literal!r}, line={self.line})"
 
     __repr__ = __str__
