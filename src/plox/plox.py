@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from .scanner import Scanner
+from plox.scanner import Scanner
 
 
 class Plox:

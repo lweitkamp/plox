@@ -1,7 +1,7 @@
 import pytest
 
-from .scanner import Scanner
-from .token_type import Token, TokenType
+from plox.scanner import Scanner
+from plox.token_type import Token, TokenType
 
 
 @pytest.mark.parametrize(

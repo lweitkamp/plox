@@ -1,4 +1,4 @@
-from .token_type import KEYWORDS, Token, TokenType
+from plox.token_type import KEYWORDS, Token, TokenType
 
 
 class Scanner:
