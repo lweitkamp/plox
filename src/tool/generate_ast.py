@@ -12,7 +12,7 @@ def main(output_dir: Path):
 
     imports = [
         "from dataclasses import dataclass",
-        "from .token_type import Token",
+        "from plox.token_type import Token",
     ]
 
     define_ast(output_dir, "Expression", types, imports)
