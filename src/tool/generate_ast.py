@@ -11,8 +11,8 @@ def main(output_dir: Path):
     ]
 
     imports = [
-        "from .token_type import Token",
         "from dataclasses import dataclass",
+        "from .token_type import Token",
     ]
 
     define_ast(output_dir, "Expression", types, imports)
@@ -25,7 +25,7 @@ def define_ast(dir: Path, base_name: str, types: list[str], imports: list[str]):
             f.write(f"{import_}\n")
         f.write("\n\n")
 
-        f.write(f"class {base_name}(dataclass):\n    pass\n")
+        f.write(f"@dataclass\nclass {base_name}:\n    pass\n")
         f.write("\n\n")
 
         for type_ in types:
