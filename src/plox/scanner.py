@@ -1,5 +1,5 @@
 from plox.token_type import KEYWORDS, Token, TokenType
-
+from plox.error import error
 
 class Scanner:
     def __init__(self, source: str):
@@ -77,7 +77,7 @@ class Scanner:
                     self.identifier()
                     return
 
-                raise ValueError(f"Unexpected token {c} at line {self.line}.")
+                error(self.line, None, f"Unexpected token {c}.")
 
     def add_token(self, token_type: TokenType, literal: object = None):
         text = self.source[self.start : self.current]
@@ -93,7 +93,8 @@ class Scanner:
             self.advance()
 
         if self.is_at_end:
-            raise ValueError(f"Unterminated string at line {self.line}.")
+            error(self.line, None, "Unterminated string.")
+            return
 
         self.advance()
         value = self.source[self.start + 1 : self.current - 1]

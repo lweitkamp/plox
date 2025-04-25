@@ -4,8 +4,6 @@ from plox.scanner import Scanner
 
 
 class Plox:
-    def __init__(self):
-        self.had_error: bool = False
 
     def run(self, source: str):
         scanner = Scanner(source)
@@ -36,10 +34,3 @@ class Plox:
                 break
             except KeyboardInterrupt:
                 break
-
-    def error(self, line: int, message: str):
-        self.report(line, "", message)
-
-    def report(self, line: int, where: str, message: str):
-        print(f"[line {line}] Error {where}: {message}")
-        self.had_error = True
