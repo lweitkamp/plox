@@ -97,3 +97,36 @@ def test_parse_grouping_and_binary():
     assert inner.right.value == 2
     # right operand 3
     assert expr.right.value == 3
+
+
+def test_parse_comma_simple():
+    tokens = [
+        make_token(TokenType.NUMBER, "1", 1),
+        make_token(TokenType.COMMA, ",", None),
+        make_token(TokenType.NUMBER, "2", 2),
+    ]
+    expr = parse(tokens)
+    assert isinstance(expr, Binary)
+    assert expr.operator.type == TokenType.COMMA
+    assert expr.left.value == 1
+    assert expr.right.value == 2
+
+
+def test_parse_comma_associative():
+    tokens = [
+        make_token(TokenType.NUMBER, "1", 1),
+        make_token(TokenType.COMMA, ",", None),
+        make_token(TokenType.NUMBER, "2", 2),
+        make_token(TokenType.COMMA, ",", None),
+        make_token(TokenType.NUMBER, "3", 3),
+    ]
+    expr = parse(tokens)
+    # (1 , 2) , 3
+    assert isinstance(expr, Binary)
+    assert expr.operator.type == TokenType.COMMA
+    left = expr.left
+    assert isinstance(left, Binary)
+    assert left.operator.type == TokenType.COMMA
+    assert left.left.value == 1
+    assert left.right.value == 2
+    assert expr.right.value == 3
