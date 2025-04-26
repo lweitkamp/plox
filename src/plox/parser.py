@@ -1,12 +1,18 @@
+from plox.error import ParseError
 from plox.expressions import Binary, Grouping, Literal, Unary
 from plox.token_type import Token, TokenType
-from plox.error import ParseError
 
 
 class Parser:
     def __init__(self, tokens: list[Token]):
         self.tokens = tokens
         self.current = 0
+
+    def parse(self):
+        try:
+            return self.expression()
+        except ParseError:
+            return None
 
     def expression(self):
         return self.equality()
@@ -70,6 +76,8 @@ class Parser:
             self.consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.")
             return Grouping(expression)
 
+        raise ParseError(self.peek(), "Expect expression.")
+
     def equality(self):
         expression = self.comparison()
 
@@ -91,6 +99,29 @@ class Parser:
         if self.check(token_type):
             return self.advance()
         raise ParseError(self.peek(), message)
+
+    def synchronize(self):
+        self.advance()
+
+        while not self.is_at_end():
+            if self.previous().type == TokenType.SEMICOLON:
+                return
+
+            self.advance()
+
+            if self.peek().type in (
+                TokenType.CLASS,
+                TokenType.FUN,
+                TokenType.VAR,
+                TokenType.FOR,
+                TokenType.IF,
+                TokenType.WHILE,
+                TokenType.PRINT,
+                TokenType.RETURN,
+            ):
+                return
+
+        self.advance()
 
     def check(self, token_type: TokenType):
         if self.is_at_end():
